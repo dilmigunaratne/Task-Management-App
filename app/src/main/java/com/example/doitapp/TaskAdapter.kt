@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
@@ -26,6 +27,7 @@ class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView
         val contentTextView: TextView = itemView.findViewById(R.id.contentTextView)
         val updateButton: ImageView = itemView.findViewById(R.id.updateButton)
         val deleteButton: ImageView = itemView.findViewById(R.id.deleteButton)
+        val checkboxDone: CheckBox = itemView.findViewById(R.id.checkboxDone)
 
     }
 
@@ -41,6 +43,19 @@ class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView
         holder.titleTextView.text = task.title
         holder.priorityTextView.text = task.priority
         holder.contentTextView.text = task.content
+
+        //set checkbox state upon completion
+        holder.checkboxDone.isChecked = task.isDone
+
+        holder.checkboxDone.setOnCheckedChangeListener{_, isChecked ->
+            //task.isDone = isChecked
+            if(isChecked){
+                task.isDone = true
+
+                db.deleteTask(task.id)
+                notifyDataSetChanged()
+            }
+        }
 
         // Set background color based on priority
         val priorityColor = when(task.priority.toLowerCase()) {

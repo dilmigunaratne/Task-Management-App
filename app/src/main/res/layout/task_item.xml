@@ -11,62 +11,76 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="16dp">
 
-        <RelativeLayout
+        <CheckBox
+            android:id="@+id/checkboxDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/updateButton"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+                    android:src="@drawable/edit"/>
+
+                <ImageView
+                    android:id="@+id/deleteButton"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/delete"/>
+
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/titleTextView"
+                android:id="@+id/priorityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="Priority"
                 android:fontFamily="@font/poppins"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="11sp" />
 
-            <ImageView
-                android:id="@+id/updateButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30dp"
-                android:src="@drawable/edit"/>
+            <TextView
+                android:id="@+id/contentTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Content"
+                android:fontFamily="@font/poppins"
+                android:textColor="@color/black"
+                android:maxLines="3"
+                android:layout_marginTop="4dp"
+                android:textSize="11sp" />
 
-            <ImageView
-                android:id="@+id/deleteButton"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/delete"/>
+        </LinearLayout>
 
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/priorityTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Priority"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/contentTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Content"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/black"
-            android:maxLines="3"
-            android:layout_marginTop="4dp"
-            android:textSize="11sp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
