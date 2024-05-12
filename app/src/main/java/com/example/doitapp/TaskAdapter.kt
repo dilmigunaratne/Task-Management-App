@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,9 +15,10 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView.Adapter<TaskAdapter.TaskViewHolder>(){
+class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView.Adapter<TaskAdapter.TaskViewHolder>(), Filterable{
 
     private val db: TaskDatabaseHelper = TaskDatabaseHelper(context)
+    private var tasksFiltered: List<Task> = tasks
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -31,10 +34,10 @@ class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView
         return TaskViewHolder(view)
     }
 
-    override fun getItemCount(): Int = tasks.size
+    override fun getItemCount(): Int = tasksFiltered.size
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = tasks[position]
+        val task = tasksFiltered[position]
         holder.titleTextView.text = task.title
         holder.priorityTextView.text = task.priority
         holder.contentTextView.text = task.content
@@ -62,7 +65,44 @@ class TaskAdapter(private var tasks: List<Task>, context: Context): RecyclerView
     }
 
     fun refreshData(newTasks: List<Task>){
-        tasks = newTasks
+//        tasks = newTasks.sortedByDescending { it.priority }
+//        notifyDataSetChanged()
+        tasksFiltered = newTasks.sortedWith(compareByDescending<Task> {
+            when(it.priority.toLowerCase()){
+                "high" -> 3
+                "medium" -> 2
+                else -> 1
+            }
+        })
         notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = mutableListOf<Task>()
+                if (constraint.isNullOrEmpty()){
+                    filteredList.addAll(tasks)
+                }else{
+                    val filterPattern = constraint.toString().toLowerCase().trim()
+                    for (task in tasks){
+                        if (task.title.toLowerCase().contains(filterPattern) ||
+                            task.content.toLowerCase().contains(filterPattern)){
+                            filteredList.add(task)
+                        }
+                    }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                tasksFiltered = results?.values as List<Task>
+                notifyDataSetChanged()
+            }
+
+        }
     }
 }

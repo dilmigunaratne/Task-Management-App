@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background2"
     tools:context=".MainActivity">
 
     <TextView
@@ -20,11 +20,26 @@
         android:textSize="24sp"
         android:textStyle="bold"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_height="50dp"
+        android:textAppearance="@font/poppins"
+        android:textSize="11sp"
+        android:layout_below="@id/taskHeading"
+        android:layout_marginTop="10dp"
+        android:padding="16dp"
+        android:background="@drawable/pink_border"
+        android:queryHint="Search tasks..."
+        app:iconifiedByDefault="false"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchView"
+        android:layout_marginTop="10dp"
         android:padding="16dp"/>
 
 

@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#F683AD</color>
     <color name="highPriority">#EF9A95</color>
-    <color name="mediumPriority">#F8EFA0</color>
-    <color name="otherPriority">#91E995</color>
+    <color name="mediumPriority">#91E995</color>
+    <color name="otherPriority">#F8EFA0</color>
 </resources>
